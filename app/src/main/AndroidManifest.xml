@@ -18,16 +18,16 @@
             android:resource="@xml/actions" />
 
         <activity
-            android:name=".ThirdActivity"
+            android:name=".Activities.SecondActivity"
             android:exported="false" />
         <activity
-            android:name=".SecondActivity"
+            android:name=".Activities.ThirdActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity2"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package com.example.btsppe_android;
+package com.example.btsppe_android.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.btsppe_android.R;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -24,7 +26,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
@@ -140,5 +141,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(context, "Failed to connect to server. Please check your internet connection and try again.", Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    public static class SecondActivity {
     }
 }

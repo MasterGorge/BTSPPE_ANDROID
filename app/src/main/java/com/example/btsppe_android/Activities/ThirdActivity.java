@@ -1,10 +1,13 @@
-package com.example.btsppe_android;
+package com.example.btsppe_android.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class ThirdActivity extends AppCompatActivity {
+import com.example.btsppe_android.R;
+
+public class
+ThirdActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

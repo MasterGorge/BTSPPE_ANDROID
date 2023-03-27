@@ -5,14 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#9cc2e5"
-    tools:context=".MainActivity">
+
+    tools:context=".Activities.MainActivity">
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="E-Mail"
+        android:text="Votre Email: "
         android:textSize="40dp"
         android:layout_marginTop="50dp"
         android:id="@+id/usernameview"
@@ -26,7 +26,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Password"
+        android:text="Votre mot de passe: "
         android:layout_below="@+id/username"
         android:textSize="40dp"
         android:layout_marginTop="20dp"
