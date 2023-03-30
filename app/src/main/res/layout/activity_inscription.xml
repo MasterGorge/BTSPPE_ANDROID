@@ -139,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
                 android:textAlignment="center"
-                android:text="@string/already_member"/>
+                android:text="@string/already_signin"/>
 
         </LinearLayout>
     </ScrollView>

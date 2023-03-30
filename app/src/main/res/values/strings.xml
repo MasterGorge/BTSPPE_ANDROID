@@ -7,7 +7,7 @@
     <string name="form_email">Email</string>
     <string name="form_phone">Adresse postale</string>
     <string name="form_password">Mot de passe</string>
-    <string name="already_member">Se connecter</string>
+    <string name="already_signin">Se connecter</string>
     <string name="new_member">New Here ? Sign up instead.</string>
     <string name="nameerror">Enter a valid name</string>
     <string name="emailerror">Enter a valid email</string>
