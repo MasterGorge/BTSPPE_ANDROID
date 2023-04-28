@@ -16,4 +16,7 @@
     <string name="app_name">BTSPPE_ANDROID</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="jouer">Jouer</string>
+    <string name="entrer_votre_prenom">Entrer votre prenom</string>
+    <string name="bienvenue_dans_top_quiz_quel_est_votre_pr_nom">Bienvenue dans TopQuiz. Quel est votre prénom ?</string>
 </resources>

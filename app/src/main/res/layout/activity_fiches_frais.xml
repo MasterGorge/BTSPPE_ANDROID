@@ -1,32 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<!-- activity_main.xml -->
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activities.">
-
-    <TextView
-        android:layout_margin="16dp"
-        android:padding="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Bienvenue dans TopQuiz. Quel est votre prénom ?" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:hint="Entrer votre prenom" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="16dp"
-        android:text="Jouer" />
+    android:paddingLeft="16dp"
+    android:paddingTop="16dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="16dp"
+    tools:context=".Activities.FichesFraisActivity">
 
 
-</LinearLayout>
+
+        <TextView
+            android:id="@+id/tvNom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nom :"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/etNom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvNom"
+            android:hint="Entrez votre nom"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/tvPrenom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etNom"
+            android:text="Prénom :"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/etPrenom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvPrenom"
+            android:hint="Entrez votre prénom"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/tvPoste"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etPrenom"
+            android:text="Poste :"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/etPoste"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvPoste"
+            android:hint="Entrez votre poste"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/tvMois"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etPoste"
+            android:text="Mois :"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/etMois"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvMois"
+            android:hint="Entrez le mois"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/tvDates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etMois"
+            android:text="Dates :"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/etDates"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvDates"
+            android:hint="Entrez les dates"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp" />
+        <TextView
+            android:id="@+id/tvFraisHebergement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etDates"
+            android:text="Frais d'hébergement :"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/etFraisHebergement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvFraisHebergement"
+            android:hint="Entrez les frais d'hébergement"
+            android:inputType="numberDecimal"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/tvFraisRepas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etFraisHebergement"
+            android:text="Frais de repas :"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/etFraisRepas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvFraisRepas"
+            android:hint="Entrez les frais de repas"
+            android:inputType="numberDecimal"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/tvFraisTransport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etFraisRepas"
+            android:text="Frais de transport :"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/etFraisTransport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvFraisTransport"
+            android:hint="Entrez les frais de transport"
+            android:inputType="numberDecimal"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/btnEnvoyer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etFraisTransport"
+            android:text="Envoyer"
+            android:textSize="18sp" />
+        </ScrollView>
+</RelativeLayout>
+
