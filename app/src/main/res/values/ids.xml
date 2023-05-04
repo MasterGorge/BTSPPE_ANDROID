@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="tvTotalFrais" type="id" />
+    <item name="tvTotalFrais" type="id" />
+    <item name="nom" type="id" />
+    <item name="prenom" type="id" />
+    <item name="poste" type="id" />
+    <item name="mois" type="id" />
+    <item name="hebergement" type="id" />
+    <item name="date" type="id" />
+    <item name="repas" type="id" />
+    <item name="transport" type="id" />
+    <item name="autres" type="id" />
+    <item name="description" type="id" />
+    <item name="envoyer" type="id" />
+</resources>
