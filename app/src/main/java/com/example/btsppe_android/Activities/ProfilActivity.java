@@ -8,6 +8,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import android.os.Bundle;
+import android.util.Log;
+
+import com.example.btsppe_android.R;
 
 public class ProfilActivity extends AppCompatActivity {
 

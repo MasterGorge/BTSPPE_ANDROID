@@ -111,7 +111,8 @@ public class FichesFraisActivity extends AppCompatActivity {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                });
-            }
+                };
+            });
         }
+}
 
