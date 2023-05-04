@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.example.btsppe_android.R;
+
 public class afficher_fichefrais extends AppCompatActivity {
 
     @Override
