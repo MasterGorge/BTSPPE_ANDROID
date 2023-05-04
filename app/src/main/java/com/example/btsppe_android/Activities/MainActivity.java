@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected Integer doInBackground(String... params) {
+
             String login_url = "https://protfoliomartinbillault.000webhostapp.com/gsb/login.php";
             try {
                 URL url = new URL(login_url);
