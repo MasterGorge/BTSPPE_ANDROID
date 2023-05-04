@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#F6F5F5">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Galaxy Swiss Bourdin (GSB)"
+            android:textAlignment="center"
+            android:textSize="25sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_marginTop="20dp"
+            android:textAlignment="center"
+            android:text="Note de frais"/>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:stretchColumns="*">
+
+            <TableRow>
+                <TextView
+                    android:text="Date"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:text="Description"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:text="Déplacement"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:text="Repas"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:text="Hébergement"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:text="Autres"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:text=""
+                    android:textStyle="bold"/>
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:text="Row 1, Column 1"/>
+                <TextView
+                    android:text="Row 1, Column 2"/>
+                <TextView
+                    android:text="Row 1, Column 3"/>
+                <TextView
+                    android:text="Row 1, Column 4"/>
+                <TextView
+                    android:text="Row 1, Column 5"/>
+                <TextView
+                    android:text="Row 1, Column 6"/>
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:text="Row 2, Column 1"/>
+                <TextView
+                    android:text="Row 2, Column 2"/>
+                <TextView
+                    android:text="Row 2, Column 3"/>
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:text="Row 3, Column 1"/>
+                <TextView
+                    android:text="Row 3, Column 2"/>
+                <TextView
+                    android:text="Row 3, Column 3"/>
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
+
+</ScrollView>

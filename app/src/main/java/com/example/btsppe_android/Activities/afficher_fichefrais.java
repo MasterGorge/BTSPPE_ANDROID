@@ -1,17 +1,16 @@
 package com.example.btsppe_android.Activities;
 
-import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.btsppe_android.R;
+import android.os.Bundle;
 
-public class FichesFraisActivity extends AppCompatActivity {
+public class afficher_fichefrais extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fiches_frais);
-    }
+        setContentView(R.layout.activity_afficher_fichefrais);
 
+
+    }
 }
