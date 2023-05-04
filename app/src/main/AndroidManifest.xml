@@ -20,18 +20,11 @@
             android:name=".FichesFraisActivity"
             android:exported="false" />
 
-        <meta-data
-            android:name="com.google.android.actions"
-            android:resource="@xml/actions" />
-
         <activity
             android:name=".Activities.SecondActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.ThirdActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity2"
             android:exported="false" />
         <activity
             android:name=".Activities.MainActivity"
