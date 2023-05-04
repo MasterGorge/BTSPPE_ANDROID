@@ -1,4 +1,5 @@
 <resources>
+    <string name="appp_name">LoginDesign</string>
     <string name="user_name">UserName</string>
     <string name="form_prenom">Prénom</string>
     <string name="form_poste">Poste</string>
