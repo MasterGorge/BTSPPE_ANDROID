@@ -14,7 +14,7 @@
         android:theme="@style/Theme.BTSPPE_ANDROID"
         tools:targetApi="31">
         <activity
-            android:name=".ProfilActivity"
+            android:name=".afficher_fichefrais"
             android:exported="false" />
         <activity
             android:name=".FichesFraisActivity"
