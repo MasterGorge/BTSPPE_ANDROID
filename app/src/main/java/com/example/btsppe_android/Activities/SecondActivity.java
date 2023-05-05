@@ -1,15 +1,13 @@
 package com.example.btsppe_android.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+import android.os.Bundle;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.btsppe_android.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.TextView;
 
 public class SecondActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;

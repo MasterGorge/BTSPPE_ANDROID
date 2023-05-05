@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.btsppe_android">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,8 +11,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.BTSPPE_ANDROID"
-        tools:targetApi="31">
+        android:theme="@style/Theme.BTSPPE_ANDROID">
+
+        <!-- Define all your activities here -->
         <activity
             android:name=".afficher_fichefrais"
             android:exported="false" />
@@ -21,20 +22,29 @@
             android:exported="false" />
 
         <activity
-            android:name=".Activities.SecondActivity"
-            android:exported="false" />
-        <activity
             android:name=".Activities.ThirdActivity"
             android:exported="false" />
+
+        <!-- Declare your launcher activity with appropriate intent filter -->
         <activity
             android:name=".Activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Add intent filter for SecondActivity -->
+        <activity
+            android:name=".Activities.SecondActivity"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.example.btsppe_android.ACTION_SECOND_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>
