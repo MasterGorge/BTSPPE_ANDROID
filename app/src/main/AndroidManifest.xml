@@ -18,6 +18,9 @@
             android:label="@string/SecondActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".Activities.FichesFraisActivity"
+            android:exported="false" />
 
         <activity
             android:name=".Activities.MainActivity"

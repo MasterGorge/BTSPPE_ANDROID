@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent secondPage = new Intent(context, acceuilActivity.class);
                 context.startActivity(secondPage);
             } else if (status == HttpURLConnection.HTTP_BAD_REQUEST) {
-                Toast.makeText(context, "Incorrect username or password", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Incorrect username or password", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(context, "Failed to connect to the server. Please check your internet connection and try again.", Toast.LENGTH_LONG).show();
             }
