@@ -1,7 +1,5 @@
 package com.example.btsppe_android.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -12,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.btsppe_android.R;
 
@@ -51,9 +51,8 @@ public class MainActivity extends AppCompatActivity {
                 if (userVar.equals("")) {
                     Toast.makeText(getApplicationContext(), "Username cannot be blank", Toast.LENGTH_SHORT).show();
                 } else if (passVar.equals("")) {
-                    Toast.makeText(getApplicationContext(), "password cannot be blank", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Password cannot be blank", Toast.LENGTH_SHORT).show();
                 } else {
-                    //Toast.makeText(getApplicationContext(), "login method to proceed", Toast.LENGTH_SHORT).show();
                     Login lg = new Login(MainActivity.this);
                     lg.execute();
                 }
@@ -74,13 +73,13 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            progressDialog = ProgressDialog.show(context, "", "Logging you in... Please wait");
+            progressDialog = ProgressDialog.show(context, "", "Logging you in... Please wait", true);
         }
 
         @Override
         protected Integer doInBackground(String... params) {
 
-            String login_url = "https://protfoliomartinbillault.000webhostapp.com/gsb/login.php";
+            String login_url = "https://connexionapi.000webhostapp.com/login.php";
             try {
                 URL url = new URL(login_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -129,13 +128,12 @@ public class MainActivity extends AppCompatActivity {
                 username.setText("");
                 password.setText("");
                 Toast.makeText(context, "Login successful", Toast.LENGTH_SHORT).show();
-                Intent secondPage = new Intent(MainActivity.this,SecondActivity.class);
-                Bundle b=new Bundle();
-                b.putString("user", username.getText().toString());
-                b.putString("password", password.getText().toString());
-
-                secondPage.putExtras(b);
+                Bundle b = new Bundle();
+                b.putString("user", userVar);
+                b.putString("password", passVar);
+                Intent secondPage = new Intent(getApplicationContext(), SecondActivity.class);
                 startActivity(secondPage);
+                //secondPage.putExtras(b);
             } else if (status == HttpURLConnection.HTTP_BAD_REQUEST) {
                 Toast.makeText(context, "Incorrect username or password", Toast.LENGTH_LONG).show();
             } else {
