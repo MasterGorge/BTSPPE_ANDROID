@@ -1,6 +1,7 @@
 package com.example.btsppe_android.Activities;
 
-import android.os.AsyncTask;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,14 +10,20 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.btsppe_android.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FichesFraisActivity extends AppCompatActivity {
 
@@ -24,7 +31,8 @@ public class FichesFraisActivity extends AppCompatActivity {
     private Button btnEnvoyer;
 
     private static final String API_URL = "https://connexionapi.000webhostapp.com/ApiFichesFrais.php";
-    private String token = ""; // Store the token of the logged-in user
+    private SharedPreferences tokenPrefs;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +57,8 @@ public class FichesFraisActivity extends AppCompatActivity {
             }
         });
 
-        // Récupérer le token de l'utilisateur connecté depuis l'activité précédente
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            token = extras.getString("token");
-        }
+        tokenPrefs = getSharedPreferences("TokenPrefs", Context.MODE_PRIVATE);
+        token = tokenPrefs.getString("token", "");
     }
 
     private void sendFicheFrais() {
@@ -90,60 +95,48 @@ public class FichesFraisActivity extends AppCompatActivity {
         }
 
         // Envoyer la requête POST à l'API
-        new SendFicheFraisTask().execute(jsonObject.toString());
+        sendFicheFraisRequest(jsonObject.toString());
     }
 
-    private class SendFicheFraisTask extends AsyncTask<String, Void, Integer> {
-
-        @Override
-        protected Integer doInBackground(String... params) {
-            String jsonInput = params[0];
-            HttpURLConnection urlConnection = null;
-            try {
-                URL url = new URL(API_URL);
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("POST");
-                urlConnection.setRequestProperty("Content-Type", "application/json");
-                urlConnection.setRequestProperty("Authorization", "Bearer " + token);
-                urlConnection.setDoOutput(true);
-
-                OutputStream outputStream = urlConnection.getOutputStream();
-                outputStream.write(jsonInput.getBytes());
-                outputStream.flush();
-                outputStream.close();
-
-                return urlConnection.getResponseCode();
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                if (urlConnection != null) {
-                    urlConnection.disconnect();
-                }
+    private void sendFicheFraisRequest(String jsonInput) {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest request = new StringRequest(Request.Method.POST, API_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Traitez la réponse de l'API ici, par exemple en affichant un message de réussite
+                Toast.makeText(FichesFraisActivity.this, "Fiche frais envoyée avec succès", Toast.LENGTH_SHORT).show();
+                // Réinitialiser les champs du formulaire
+                etNom.setText("");
+                etPrenom.setText("");
+                etPoste.setText("");
+                etMois.setText("");
+                etDates.setText("");
+                etFraisHebergement.setText("");
+                etFraisRepas.setText("");
+                etFraisTransport.setText("");
+                etAutres.setText("");
             }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Integer responseCode) {
-            if (responseCode != null) {
-                if (responseCode == HttpURLConnection.HTTP_CREATED) {
-                    Toast.makeText(FichesFraisActivity.this, "Fiche frais envoyée avec succès", Toast.LENGTH_SHORT).show();
-                    // Réinitialiser les champs du formulaire
-                    etNom.setText("");
-                    etPrenom.setText("");
-                    etPoste.setText("");
-                    etMois.setText("");
-                    etDates.setText("");
-                    etFraisHebergement.setText("");
-                    etFraisRepas.setText("");
-                    etFraisTransport.setText("");
-                    etAutres.setText("");
-                } else {
-                    Toast.makeText(FichesFraisActivity.this, "Une erreur s'est produite. Veuillez réessayer", Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                Toast.makeText(FichesFraisActivity.this, "Une erreur s'est produite. Veuillez vérifier votre connexion Internet", Toast.LENGTH_SHORT).show();
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Gérez les erreurs de l'API ici, par exemple en affichant un message d'erreur
+                Toast.makeText(FichesFraisActivity.this, "Une erreur s'est produite. Veuillez réessayer", Toast.LENGTH_SHORT).show();
             }
-        }
+        }) {
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                return jsonInput.getBytes();
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
+            }
+        };
+
+        queue.add(request);
     }
 }
