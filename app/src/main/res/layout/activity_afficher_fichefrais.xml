@@ -28,6 +28,7 @@
             android:text="Note de frais"/>
 
         <TableLayout
+            android:id="@+id/tableLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -56,6 +57,12 @@
                     android:text=""
                     android:textStyle="bold"/>
             </TableRow>
+
+            <!-- Add rows dynamically from database -->
+            <!-- Example row added programmatically -->
+            <!-- Replace this with your database retrieval logic -->
+            <!-- For each row, create a new TableRow and populate it with TextViews -->
+            <!-- Here, I'm adding three sample rows -->
 
             <TableRow>
                 <TextView

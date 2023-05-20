@@ -49,11 +49,14 @@ public class acceuilActivity extends AppCompatActivity {
                     case R.id.navigation_search:
                         // Redirection vers FichesFraisActivity
                         Intent ficheFraisIntent = new Intent(acceuilActivity.this, FichesFraisActivity.class);
+                        // Passer le token à l'activité FichesFraisActivity
+                        ficheFraisIntent.putExtra("token", token);
                         startActivity(ficheFraisIntent);
                         return true;
                     case R.id.navigation_profile:
-                        // Redirection vers le profil (peut-être vous n'en avez pas besoin)
-                        Intent profileIntent = new Intent(acceuilActivity.this, ProfilActivity.class);
+                        // Redirection vers le profil avec le token
+                        Intent profileIntent = new Intent(acceuilActivity.this, afficher_fichefrais.class);
+                        profileIntent.putExtra("token", token);
                         startActivity(profileIntent);
                         return true;
                     default:
@@ -63,5 +66,4 @@ public class acceuilActivity extends AppCompatActivity {
         });
     }
 }
-
 
