@@ -1,5 +1,7 @@
 package com.example.btsppe_android.Activities;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.TableLayout;
@@ -8,22 +10,25 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.btsppe_android.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 public class afficher_fichefrais extends AppCompatActivity {
 
-    private TableLayout tableLayout;
+    private SharedPreferences tokenPrefs;
     private String token;
 
     @Override
@@ -31,105 +36,110 @@ public class afficher_fichefrais extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_afficher_fichefrais);
 
-        tableLayout = findViewById(R.id.tableLayout);
+        tokenPrefs = getSharedPreferences("TokenPrefs", Context.MODE_PRIVATE);
+        token = tokenPrefs.getString("token", "");
 
-        // Récupérer le token de l'intent
-        token = getIntent().getStringExtra("token");
+        TableLayout tableLayout = findViewById(R.id.tableLayout);
 
-        // Appeler la méthode pour récupérer les données JSON de l'API
-        new FetchFicheFraisTask().execute();
+        // Appel à l'API pour récupérer les données des fiches de frais
+        new FetchFichesFraisTask().execute();
     }
 
-    private class FetchFicheFraisTask extends AsyncTask<Void, Void, String> {
-
+    private class FetchFichesFraisTask extends AsyncTask<Void, Void, String> {
         @Override
         protected String doInBackground(Void... voids) {
             String apiUrl = "https://connexionapi.000webhostapp.com/AfficherFichesFrais.php";
-            String result = "";
+            RequestQueue queue = Volley.newRequestQueue(afficher_fichefrais.this);
+            StringRequest request = new StringRequest(Request.Method.GET, apiUrl, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    // Traitez la réponse de l'API ici, par exemple en mettant à jour l'interface utilisateur
+                    try {
+                        JSONObject jsonResponse = new JSONObject(response);
+                        int status = jsonResponse.getInt("status");
 
-            try {
-                URL url = new URL(apiUrl);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
+                        if (status == 200) {
+                            JSONArray jsonArray = jsonResponse.getJSONArray("data");
 
-                // Ajouter le token à la requête
-                connection.setRequestProperty("Authorization", "Bearer " + token);
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                InputStream inputStream = connection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    result += line;
-                }
+                                String nom = jsonObject.getString("nom");
+                                String prenom = jsonObject.getString("prenom");
+                                String mois = jsonObject.getString("mois");
+                                String date = jsonObject.getString("date");
+                                int hebergement = jsonObject.getInt("hebergement");
+                                int repas = jsonObject.getInt("repas");
+                                int transport = jsonObject.getInt("transport");
+                                int prixTotal = jsonObject.getInt("prix_total");
+                                int autres = jsonObject.getInt("autres");
 
-                bufferedReader.close();
-                inputStream.close();
-                connection.disconnect();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+                                TableRow row = new TableRow(afficher_fichefrais.this);
 
-            return result;
-        }
+                                TextView textViewNom = new TextView(afficher_fichefrais.this);
+                                textViewNom.setText(nom);
+                                row.addView(textViewNom);
 
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
+                                TextView textViewPrenom = new TextView(afficher_fichefrais.this);
+                                textViewPrenom.setText(prenom);
+                                row.addView(textViewPrenom);
 
-            try {
-                JSONObject response = new JSONObject(result);
-                int status = response.getInt("status");
-                JSONArray data = response.getJSONArray("data");
+                                TextView textViewMois = new TextView(afficher_fichefrais.this);
+                                textViewMois.setText(mois);
+                                row.addView(textViewMois);
 
-                if (status == 200) {
-                    for (int i = 0; i < data.length(); i++) {
-                        JSONObject fiche = data.getJSONObject(i);
+                                TextView textViewDate = new TextView(afficher_fichefrais.this);
+                                textViewDate.setText(date);
+                                row.addView(textViewDate);
 
-                        String date = fiche.getString("date");
-                        String description = fiche.getString("description");
-                        String deplacement = fiche.getString("deplacement");
-                        String repas = fiche.getString("repas");
-                        String hebergement = fiche.getString("hebergement");
-                        String autres = fiche.getString("autres");
+                                TextView textViewHebergement = new TextView(afficher_fichefrais.this);
+                                textViewHebergement.setText(String.valueOf(hebergement));
+                                row.addView(textViewHebergement);
 
-                        // Créer une nouvelle TableRow et y ajouter les TextViews
-                        TableRow row = new TableRow(afficher_fichefrais.this);
+                                TextView textViewRepas = new TextView(afficher_fichefrais.this);
+                                textViewRepas.setText(String.valueOf(repas));
+                                row.addView(textViewRepas);
 
-                        TextView dateTextView = new TextView(afficher_fichefrais.this);
-                        dateTextView.setText(date);
-                        row.addView(dateTextView);
+                                TextView textViewTransport = new TextView(afficher_fichefrais.this);
+                                textViewTransport.setText(String.valueOf(transport));
+                                row.addView(textViewTransport);
 
-                        TextView descriptionTextView = new TextView(afficher_fichefrais.this);
-                        descriptionTextView.setText(description);
-                        row.addView(descriptionTextView);
+                                TextView textViewPrixTotal = new TextView(afficher_fichefrais.this);
+                                textViewPrixTotal.setText(String.valueOf(prixTotal));
+                                row.addView(textViewPrixTotal);
 
-                        TextView deplacementTextView = new TextView(afficher_fichefrais.this);
-                        deplacementTextView.setText(deplacement);
-                        row.addView(deplacementTextView);
+                                TextView textViewAutres = new TextView(afficher_fichefrais.this);
+                                textViewAutres.setText(String.valueOf(autres));
+                                row.addView(textViewAutres);
 
-                        TextView repasTextView = new TextView(afficher_fichefrais.this);
-                        repasTextView.setText(repas);
-                        row.addView(repasTextView);
-
-                        TextView hebergementTextView = new TextView(afficher_fichefrais.this);
-                        hebergementTextView.setText(hebergement);
-                        row.addView(hebergementTextView);
-
-                        TextView autresTextView = new TextView(afficher_fichefrais.this);
-                        autresTextView.setText(autres);
-                        row.addView(autresTextView);
-
-                        // Ajouter la nouvelle TableRow au TableLayout
-                        tableLayout.addView(row);
+                                TableLayout tableLayout = findViewById(R.id.tableLayout);
+                                tableLayout.addView(row);
+                            }
+                        } else {
+                            // Gérer le cas où aucune donnée n'est trouvée ou une autre erreur
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                } else {
-                    // Afficher un message d'erreur en cas de statut différent de 200
-                    String message = response.getString("message");
-                    // TODO: Afficher le message d'erreur à l'utilisateur
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    // Gérez les erreurs de l'API ici
+                }
+            }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers = new HashMap<>();
+                    headers.put("Authorization", "Bearer " + token);
+                    return headers;
+                }
+            };
+
+            queue.add(request);
+            return null;
         }
+
+
     }
 }
