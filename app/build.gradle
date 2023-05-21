@@ -27,9 +27,13 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_9
+        targetCompatibility JavaVersion.VERSION_1_9
     }
+}
+dependencies {
+    // ...
+    implementation 'com.android.volley:volley:1.2.1'
 }
 
 dependencies {

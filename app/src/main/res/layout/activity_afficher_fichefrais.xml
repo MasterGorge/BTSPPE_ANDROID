@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<HorizontalScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -28,6 +29,7 @@
             android:text="Note de frais"/>
 
         <TableLayout
+            android:id="@+id/tableLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -35,63 +37,83 @@
 
             <TableRow>
                 <TextView
+                    android:text="Nom"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:text="Prénom"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:text="Mois"
+                    android:textStyle="bold"/>
+                <TextView
                     android:text="Date"
-                    android:textStyle="bold"/>
-                <TextView
-                    android:text="Description"
-                    android:textStyle="bold"/>
-                <TextView
-                    android:text="Déplacement"
-                    android:textStyle="bold"/>
-                <TextView
-                    android:text="Repas"
                     android:textStyle="bold"/>
                 <TextView
                     android:text="Hébergement"
                     android:textStyle="bold"/>
                 <TextView
+                    android:text="Repas"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:text="Transport"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:text="Prix Total"
+                    android:textStyle="bold"/>
+                <TextView
                     android:text="Autres"
                     android:textStyle="bold"/>
+            </TableRow>
+
+            <!-- Add rows dynamically from API response -->
+            <!-- Replace this part with your API data retrieval and loop through the data -->
+            <!-- Here, I'm adding two example rows -->
+
+            <TableRow>
                 <TextView
-                    android:text=""
-                    android:textStyle="bold"/>
+                    android:id="@+id/nomTextView1"/>
+                <TextView
+                    android:id="@+id/prenomTextView1"/>
+                <TextView
+                    android:id="@+id/moisTextView1"/>
+                <TextView
+                    android:id="@+id/dateTextView1"/>
+                <TextView
+                    android:id="@+id/hebergementTextView1"/>
+                <TextView
+                    android:id="@+id/repasTextView1"/>
+                <TextView
+                    android:id="@+id/transportTextView1"/>
+                <TextView
+                    android:id="@+id/prixTotalTextView1"/>
+                <TextView
+                    android:id="@+id/autresTextView1"/>
             </TableRow>
 
             <TableRow>
                 <TextView
-                    android:text="Row 1, Column 1"/>
+                    android:id="@+id/nomTextView2"/>
                 <TextView
-                    android:text="Row 1, Column 2"/>
+                    android:id="@+id/prenomTextView2"/>
                 <TextView
-                    android:text="Row 1, Column 3"/>
+                    android:id="@+id/moisTextView2"/>
                 <TextView
-                    android:text="Row 1, Column 4"/>
+                    android:id="@+id/dateTextView2"/>
                 <TextView
-                    android:text="Row 1, Column 5"/>
+                    android:id="@+id/hebergementTextView2"/>
                 <TextView
-                    android:text="Row 1, Column 6"/>
-            </TableRow>
-
-            <TableRow>
+                    android:id="@+id/repasTextView2"/>
                 <TextView
-                    android:text="Row 2, Column 1"/>
+                    android:id="@+id/transportTextView2"/>
                 <TextView
-                    android:text="Row 2, Column 2"/>
+                    android:id="@+id/prixTotalTextView2"/>
                 <TextView
-                    android:text="Row 2, Column 3"/>
-            </TableRow>
-
-            <TableRow>
-                <TextView
-                    android:text="Row 3, Column 1"/>
-                <TextView
-                    android:text="Row 3, Column 2"/>
-                <TextView
-                    android:text="Row 3, Column 3"/>
+                    android:id="@+id/autresTextView2"/>
             </TableRow>
 
         </TableLayout>
 
     </LinearLayout>
 
-</ScrollView>
+</HorizontalScrollView>
+

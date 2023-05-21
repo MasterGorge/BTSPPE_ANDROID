@@ -1,49 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.btsppe_android">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BTSPPE_ANDROID">
 
-        <!-- Define all your activities here -->
+
         <activity
-            android:name=".afficher_fichefrais"
-            android:exported="false" />
-        <activity
-            android:name=".FichesFraisActivity"
+            android:name=".Activities.acceuilActivity"
+            android:label="@string/SecondActivity"
             android:exported="false" />
 
         <activity
-            android:name=".Activities.ThirdActivity"
+            android:name=".Activities.FichesFraisActivity"
             android:exported="false" />
 
-        <!-- Declare your launcher activity with appropriate intent filter -->
+        <activity
+            android:name=".Activities.afficher_fichefrais"
+            android:exported="false" />
+
         <activity
             android:name=".Activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!-- Add intent filter for SecondActivity -->
-        <activity
-            android:name=".Activities.SecondActivity"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.example.btsppe_android.ACTION_SECOND_ACTIVITY" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+
 
     </application>
 

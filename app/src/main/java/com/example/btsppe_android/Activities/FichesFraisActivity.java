@@ -1,118 +1,142 @@
 package com.example.btsppe_android.Activities;
 
-import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.btsppe_android.R;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.net.URLEncoder;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class FichesFraisActivity extends AppCompatActivity {
 
-        // Les champs du formulaire
-        private EditText nom;
-        private EditText prenom;
-        private EditText poste;
-        private EditText mois;
-        private EditText date;
-        private EditText hebergement;
-        private EditText repas;
-        private EditText transport;
-        private EditText autres;
-        private EditText description;
+    private EditText etNom, etPrenom, etPoste, etMois, etDates, etFraisHebergement, etFraisRepas, etFraisTransport, etAutres;
+    private Button btnEnvoyer;
 
-        // Le bouton d'envoi du formulaire
-        private Button envoyer;
+    private static final String API_URL = "https://connexionapi.000webhostapp.com/ApiFichesFrais.php";
+    private SharedPreferences tokenPrefs;
+    private String token;
 
-        @SuppressLint("MissingInflatedId")
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_fiches_frais);
 
-            // Récupération des vues du formulaire
-            nom = findViewById(R.id.nom);
-            prenom = findViewById(R.id.prenom);
-            poste = findViewById(R.id.poste);
-            mois = findViewById(R.id.mois);
-            date = findViewById(R.id.date);
-            hebergement = findViewById(R.id.hebergement);
-            repas = findViewById(R.id.repas);
-            transport = findViewById(R.id.transport);
-            autres = findViewById(R.id.autres);
-            description = findViewById(R.id.description);
-            envoyer = findViewById(R.id.envoyer);
+        etNom = findViewById(R.id.etNom);
+        etPrenom = findViewById(R.id.etPrenom);
+        etPoste = findViewById(R.id.etPoste);
+        etMois = findViewById(R.id.etMois);
+        etDates = findViewById(R.id.etDates);
+        etFraisHebergement = findViewById(R.id.etFraisHebergement);
+        etFraisRepas = findViewById(R.id.etFraisRepas);
+        etFraisTransport = findViewById(R.id.etFraisTransport);
+        etAutres = findViewById(R.id.etAutres);
+        btnEnvoyer = findViewById(R.id.btnEnvoyer);
 
-            // Ajout du listener sur le bouton d'envoi du formulaire
-            envoyer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Récupération des valeurs des champs du formulaire
-                    String nomValue = nom.getText().toString();
-                    String prenomValue = prenom.getText().toString();
-                    String posteValue = poste.getText().toString();
-                    String moisValue = mois.getText().toString();
-                    String dateValue = date.getText().toString();
-                    String hebergementValue = hebergement.getText().toString();
-                    String repasValue = repas.getText().toString();
-                    String transportValue = transport.getText().toString();
-                    String autresValue = autres.getText().toString();
-                    String descriptionValue = description.getText().toString();
+        btnEnvoyer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendFicheFrais();
+            }
+        });
 
-                    // Envoi des données du formulaire à l'API
-                    try {
-                        URL url = new URL("https://connexionapi.000webhostapp.com/ApiFichesFrais.php");
-                        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                        conn.setRequestMethod("POST");
-                        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                        conn.setRequestProperty("charset", "utf-8");
-                        conn.setDoOutput(true);
+        tokenPrefs = getSharedPreferences("TokenPrefs", Context.MODE_PRIVATE);
+        token = tokenPrefs.getString("token", "");
+    }
 
-                        // Construction des données à envoyer
-                        String data = URLEncoder.encode("nom", "UTF-8") + "=" + URLEncoder.encode(nomValue, "UTF-8");
-                        data += "&" + URLEncoder.encode("prenom", "UTF-8") + "=" + URLEncoder.encode(prenomValue, "UTF-8");
-                        data += "&" + URLEncoder.encode("poste", "UTF-8") + "=" + URLEncoder.encode(posteValue, "UTF-8");
-                        data += "&" + URLEncoder.encode("mois", "UTF-8") + "=" + URLEncoder.encode(moisValue, "UTF-8");
-                        data += "&" + URLEncoder.encode("date", "UTF-8") + "=" + URLEncoder.encode(dateValue, "UTF-8");
-                        data += "&" + URLEncoder.encode("hebergement", "UTF-8") + "=" + URLEncoder.encode(hebergementValue, "UTF-8");
-                        data += "&" + URLEncoder.encode("repas", "UTF-8") + "=" + URLEncoder.encode(repasValue, "UTF-8");
-                        data += "&" + URLEncoder.encode("transport", "UTF-8") + "=" + URLEncoder.encode(transportValue, "UTF-8");
-                        data += "&" + URLEncoder.encode("autres", "UTF-8") + "=" + URLEncoder.encode(autresValue, "UTF-8");
-                        data += "&" + URLEncoder.encode("description", "UTF-8") + "=" + URLEncoder.encode(descriptionValue, "UTF-8");
+    private void sendFicheFrais() {
+        String nom = etNom.getText().toString().trim();
+        String prenom = etPrenom.getText().toString().trim();
+        String poste = etPoste.getText().toString().trim();
+        String mois = etMois.getText().toString().trim();
+        String dates = etDates.getText().toString().trim();
+        String fraisHebergement = etFraisHebergement.getText().toString().trim();
+        String fraisRepas = etFraisRepas.getText().toString().trim();
+        String fraisTransport = etFraisTransport.getText().toString().trim();
+        String autres = etAutres.getText().toString().trim();
 
-                        // Envoi des données
-                        conn.getOutputStream().write(data.getBytes("UTF-8"));
-
-                        // Récupération de la réponse de l'API
-                        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                            // Traitement de la réponse si besoin
-                        } else {
-                            // Traitement de l'erreur si besoin
-                        }
-
-                        conn.disconnect();
-                    } catch (ProtocolException e) {
-                        throw new RuntimeException(e);
-                    } catch (MalformedURLException e) {
-                        throw new RuntimeException(e);
-                    } catch (UnsupportedEncodingException e) {
-                        throw new RuntimeException(e);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                };
-            });
+        // Vérifier si tous les champs sont remplis
+        if (nom.isEmpty() || prenom.isEmpty() || poste.isEmpty() || mois.isEmpty() || dates.isEmpty() || fraisHebergement.isEmpty() || fraisRepas.isEmpty() || fraisTransport.isEmpty()) {
+            Toast.makeText(this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
+            return;
         }
-}
 
+        // Créer un objet JSON avec les données
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("nom", nom);
+            jsonObject.put("prenom", prenom);
+            jsonObject.put("poste", poste);
+            jsonObject.put("mois", mois);
+            jsonObject.put("date", dates);
+            jsonObject.put("hebergement", fraisHebergement);
+            jsonObject.put("repas", fraisRepas);
+            jsonObject.put("transport", fraisTransport);
+            jsonObject.put("autres", autres);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Envoyer la requête POST à l'API
+        sendFicheFraisRequest(jsonObject.toString());
+    }
+
+    private void sendFicheFraisRequest(String jsonInput) {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest request = new StringRequest(Request.Method.POST, API_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Traitez la réponse de l'API ici, par exemple en affichant un message de réussite
+                Toast.makeText(FichesFraisActivity.this, "Fiche frais envoyée avec succès", Toast.LENGTH_SHORT).show();
+                // Réinitialiser les champs du formulaire
+                etNom.setText("");
+                etPrenom.setText("");
+                etPoste.setText("");
+                etMois.setText("");
+                etDates.setText("");
+                etFraisHebergement.setText("");
+                etFraisRepas.setText("");
+                etFraisTransport.setText("");
+                etAutres.setText("");
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Gérez les erreurs de l'API ici, par exemple en affichant un message d'erreur
+                Toast.makeText(FichesFraisActivity.this, "Une erreur s'est produite. Veuillez réessayer", Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                return jsonInput.getBytes();
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
+            }
+        };
+
+        queue.add(request);
+    }
+}

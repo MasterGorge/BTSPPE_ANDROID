@@ -12,4 +12,5 @@
     <item name="autres" type="id" />
     <item name="description" type="id" />
     <item name="envoyer" type="id" />
+    <item name="recycler_view" type="id" />
 </resources>

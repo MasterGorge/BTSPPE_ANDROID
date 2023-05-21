@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -109,7 +110,19 @@ public class MainActivity extends AppCompatActivity {
                     inputStream.close();
 
                     JSONObject jsonObject = new JSONObject(response.toString());
-                    return jsonObject.getInt("status");
+                    int status = jsonObject.getInt("status");
+                    if (status == 200) {
+                        // Récupérer le token depuis la réponse de l'API
+                        String token = jsonObject.getString("token");
+
+                        // Stocker le token dans SharedPreferences
+                        SharedPreferences tokenPrefs = context.getSharedPreferences("TokenPrefs", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = tokenPrefs.edit();
+                        editor.putString("token", token);
+                        editor.apply();
+                    }
+
+                    return status;
                 } else {
                     return HttpURLConnection.HTTP_BAD_REQUEST;
                 }
@@ -128,20 +141,14 @@ public class MainActivity extends AppCompatActivity {
                 username.setText("");
                 password.setText("");
                 Toast.makeText(context, "Login successful", Toast.LENGTH_SHORT).show();
-                Bundle b = new Bundle();
-                b.putString("user", userVar);
-                b.putString("password", passVar);
-                Intent secondPage = new Intent(getApplicationContext(), SecondActivity.class);
-                startActivity(secondPage);
-                //secondPage.putExtras(b);
+                Intent secondPage = new Intent(context, acceuilActivity.class);
+                context.startActivity(secondPage);
             } else if (status == HttpURLConnection.HTTP_BAD_REQUEST) {
-                Toast.makeText(context, "Incorrect username or password", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Incorrect username or password", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(context, "Failed to connect to server. Please check your internet connection and try again.", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Failed to connect to the server. Please check your internet connection and try again.", Toast.LENGTH_LONG).show();
             }
         }
-    }
 
-    public static class SecondActivity {
     }
 }
