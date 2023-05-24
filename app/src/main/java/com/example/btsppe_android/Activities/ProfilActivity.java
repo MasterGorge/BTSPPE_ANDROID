@@ -1,72 +1,105 @@
 package com.example.btsppe_android.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.widget.TextView;
+
+import com.example.btsppe_android.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
-import android.os.Bundle;
-import android.util.Log;
-
-import com.example.btsppe_android.R;
 
 public class ProfilActivity extends AppCompatActivity {
 
+    private TextView textViewName;
+    private TextView textViewAddress;
+    private TextView textViewAdressMail;
+    private TextView textViewPoste;
 
-        private String serverUrl = "https://protfoliomartinbillault.000webhostapp.com/gsb/login.php"; // Remplacer par l'URL de votre API PHP
-        private String username = "user123"; // Remplacer par votre nom d'utilisateur
-        private String password = "pass123"; // Remplacer par votre mot de passe
-        private String result = ""; // Variable pour stocker le résultat de la requête API
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_profil);
+
+        textViewName = findViewById(R.id.textViewName);
+        textViewAddress = findViewById(R.id.textViewAddress);
+        textViewAdressMail = findViewById(R.id.textViewAdressMail);
+        textViewPoste = findViewById(R.id.textViewPoste);
+
+        // Appeler la tâche asynchrone pour récupérer les données du profil de l'utilisateur
+        GetProfileDataTask getProfileDataTask = new GetProfileDataTask();
+        getProfileDataTask.execute();
+    }
+
+    private class GetProfileDataTask extends AsyncTask<Void, Void, String> {
 
         @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
+        protected String doInBackground(Void... voids) {
+            SharedPreferences tokenPrefs = getSharedPreferences("TokenPrefs", Context.MODE_PRIVATE);
+            String token = tokenPrefs.getString("token", "");
 
-            // Exécuter la requête API dans un thread séparé pour éviter de bloquer l'interface utilisateur
-            Thread thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        // Encoder les paramètres de la requête dans l'URL
-                        String encodedUsername = URLEncoder.encode(username, "UTF-8");
-                        String encodedPassword = URLEncoder.encode(password, "UTF-8");
-                        String urlParameters = "username=" + encodedUsername + "&password=" + encodedPassword;
+            String apiUrl = "https://example.com/api/profile.php"; // Remplacez par l'URL de votre API PHP
 
-                        // Ouvrir une connexion HTTP avec l'API PHP
-                        URL url = new URL(serverUrl + "?" + urlParameters);
-                        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                        connection.setRequestMethod("GET");
-
-                        // Lire le résultat de la requête depuis le flux d'entrée de la connexion HTTP
-                        InputStream inputStream = connection.getInputStream();
-                        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                        String line;
-                        while ((line = bufferedReader.readLine()) != null) {
-                            result += line;
-                        }
-
-                        // Fermer les flux de lecture et la connexion HTTP
-                        bufferedReader.close();
-                        inputStream.close();
-                        connection.disconnect();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-            thread.start();
-
-            // Attendre la fin du thread de requête API avant de continuer l'exécution du code
             try {
-                thread.join();
-            } catch (InterruptedException e) {
+                URL url = new URL(apiUrl);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Authorization", "Bearer " + token); // Ajouter le token d'authentification dans l'en-tête de la requête
+
+                // Lire la réponse de l'API
+                InputStream inputStream = connection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String line;
+                StringBuilder response = new StringBuilder();
+                while ((line = bufferedReader.readLine()) != null) {
+                    response.append(line);
+                }
+                bufferedReader.close();
+                inputStream.close();
+                connection.disconnect();
+
+                return response.toString();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            // Utiliser la variable "result" pour traiter les données récupérées depuis la base de données
-            Log.d("API Result", result);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            if (response != null) {
+                try {
+                    // Convertir la réponse JSON en objet JSON
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    // Vérifier si la réponse contient les données du profil de l'utilisateur
+                    if (jsonObject.has("name") && jsonObject.has("address") && jsonObject.has("email") && jsonObject.has("poste")) {
+                        String name = jsonObject.getString("name");
+                        String address = jsonObject.getString("address");
+                        String email = jsonObject.getString("email");
+                        String poste = jsonObject.getString("poste");
+
+                        // Afficher les données dans les TextView correspondants
+                        textViewName.setText(name);
+                        textViewAddress.setText(address);
+                        textViewAdressMail.setText(email);
+                        textViewPoste.setText(poste);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
+}
