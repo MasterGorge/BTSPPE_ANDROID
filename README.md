@@ -3,6 +3,7 @@ Pour vous connecter à l’application mobile, il vous faut une adresse e-mail e
 mot de passe.
 
 télécharger l'APK: pour télécharger l'apk veuillez télécharger le fichier app-release.apk
+Si une erruer survient lors du téléchargement veuillez désactivé play protect dans le playStore
 
 Pour l’accès Visiteur :
 
