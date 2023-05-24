@@ -1,7 +1,12 @@
 # BTSPPE_ANDROID
-Pour vous connecter à l’application Web, il vous faut une adresse e-mail et un
+Pour vous connecter à l’application mobile, il vous faut une adresse e-mail et un
 mot de passe.
 
 Pour l’accès Visiteur :
-visiteur@gmail.com
-123
+email: yayan1@live.fr 
+mdp: rayan
+
+ou
+
+email: martinbillault9@gmail.com
+mdp: 123
