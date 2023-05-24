@@ -41,11 +41,7 @@ public class acceuilActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.navigation_home:
-                        // Redirection vers l'accueil (peut-être vous n'en avez pas besoin)
-                        Intent homeIntent = new Intent(acceuilActivity.this, acceuilActivity.class);
-                        startActivity(homeIntent);
-                        return true;
+
                     case R.id.navigation_search:
                         // Redirection vers FichesFraisActivity
                         Intent ficheFraisIntent = new Intent(acceuilActivity.this, FichesFraisActivity.class);
@@ -55,9 +51,15 @@ public class acceuilActivity extends AppCompatActivity {
                         return true;
                     case R.id.navigation_profile:
                         // Redirection vers le profil avec le token
-                        Intent profileIntent = new Intent(acceuilActivity.this, afficher_fichefrais.class);
+                        Intent profileIntent = new Intent(acceuilActivity.this, ProfilActivity.class);
                         profileIntent.putExtra("token", token);
                         startActivity(profileIntent);
+                        return true;
+                    case R.id.navigation_fiche_frais:
+                        // Redirection vers l'accueil (peut-être vous n'en avez pas besoin)
+                        Intent AfficherFicheFrais = new Intent(acceuilActivity.this, afficher_fichefrais.class);
+                        AfficherFicheFrais.putExtra("token", token);
+                        startActivity(AfficherFicheFrais);
                         return true;
                     default:
                         throw new IllegalStateException("Unexpected value: " + item.getItemId());

@@ -37,12 +37,6 @@
 
             <TableRow>
                 <TextView
-                    android:text="Nom"
-                    android:textStyle="bold"/>
-                <TextView
-                    android:text="Prénom"
-                    android:textStyle="bold"/>
-                <TextView
                     android:text="Mois"
                     android:textStyle="bold"/>
                 <TextView

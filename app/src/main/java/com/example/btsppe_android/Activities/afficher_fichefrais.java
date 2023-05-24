@@ -48,7 +48,7 @@ public class afficher_fichefrais extends AppCompatActivity {
     private class FetchFichesFraisTask extends AsyncTask<Void, Void, String> {
         @Override
         protected String doInBackground(Void... voids) {
-            String apiUrl = "https://connexionapi.000webhostapp.com/AfficherFichesFrais.php";
+            String apiUrl = "https://protfoliomartinbillault.000webhostapp.com/gsb/AfficherFichesFrais.php";
             RequestQueue queue = Volley.newRequestQueue(afficher_fichefrais.this);
             StringRequest request = new StringRequest(Request.Method.GET, apiUrl, new Response.Listener<String>() {
                 @Override
@@ -64,8 +64,7 @@ public class afficher_fichefrais extends AppCompatActivity {
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                                String nom = jsonObject.getString("nom");
-                                String prenom = jsonObject.getString("prenom");
+
                                 String mois = jsonObject.getString("mois");
                                 String date = jsonObject.getString("date");
                                 int hebergement = jsonObject.getInt("hebergement");
@@ -76,13 +75,6 @@ public class afficher_fichefrais extends AppCompatActivity {
 
                                 TableRow row = new TableRow(afficher_fichefrais.this);
 
-                                TextView textViewNom = new TextView(afficher_fichefrais.this);
-                                textViewNom.setText(nom);
-                                row.addView(textViewNom);
-
-                                TextView textViewPrenom = new TextView(afficher_fichefrais.this);
-                                textViewPrenom.setText(prenom);
-                                row.addView(textViewPrenom);
 
                                 TextView textViewMois = new TextView(afficher_fichefrais.this);
                                 textViewMois.setText(mois);

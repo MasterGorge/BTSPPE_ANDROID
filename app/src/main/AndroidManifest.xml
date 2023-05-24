@@ -25,6 +25,9 @@
         <activity
             android:name=".Activities.afficher_fichefrais"
             android:exported="false" />
+        <activity
+            android:name=".Activities.ProfilActivity"
+            android:exported="false" />
 
         <activity
             android:name=".Activities.MainActivity"
