@@ -3,9 +3,12 @@ package com.example.btsppe_android.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.btsppe_android.R;
@@ -40,6 +43,23 @@ public class ProfilActivity extends AppCompatActivity {
         // Appeler la tâche asynchrone pour récupérer les données du profil de l'utilisateur
         GetProfileDataTask getProfileDataTask = new GetProfileDataTask();
         getProfileDataTask.execute();
+
+        // Gérer le clic sur le bouton de déconnexion
+        Button logoutButton = findViewById(R.id.logoutButton);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Effacer les données d'authentification et retourner à l'écran de connexion
+                SharedPreferences tokenPrefs = getSharedPreferences("TokenPrefs", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = tokenPrefs.edit();
+                editor.clear();
+                editor.apply();
+
+                Intent intent = new Intent(ProfilActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private class GetProfileDataTask extends AsyncTask<Void, Void, JSONObject> {
