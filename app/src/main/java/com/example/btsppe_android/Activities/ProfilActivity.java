@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.btsppe_android.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,14 +42,14 @@ public class ProfilActivity extends AppCompatActivity {
         getProfileDataTask.execute();
     }
 
-    private class GetProfileDataTask extends AsyncTask<Void, Void, String> {
+    private class GetProfileDataTask extends AsyncTask<Void, Void, JSONObject> {
 
         @Override
-        protected String doInBackground(Void... voids) {
+        protected JSONObject doInBackground(Void... voids) {
             SharedPreferences tokenPrefs = getSharedPreferences("TokenPrefs", Context.MODE_PRIVATE);
             String token = tokenPrefs.getString("token", "");
 
-            String apiUrl = "https://example.com/api/profile.php"; // Remplacez par l'URL de votre API PHP
+            String apiUrl = "https://protfoliomartinbillault.000webhostapp.com/gsb/ApiProfil.php"; // Remplacez par l'URL de votre API PHP
 
             try {
                 URL url = new URL(apiUrl);
@@ -68,7 +69,8 @@ public class ProfilActivity extends AppCompatActivity {
                 inputStream.close();
                 connection.disconnect();
 
-                return response.toString();
+                // Convertir la réponse JSON en objet JSON
+                return new JSONObject(response.toString());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -77,24 +79,29 @@ public class ProfilActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String response) {
-            if (response != null) {
+        protected void onPostExecute(JSONObject jsonObject) {
+            if (jsonObject != null) {
                 try {
-                    // Convertir la réponse JSON en objet JSON
-                    JSONObject jsonObject = new JSONObject(response);
-
                     // Vérifier si la réponse contient les données du profil de l'utilisateur
-                    if (jsonObject.has("name") && jsonObject.has("address") && jsonObject.has("email") && jsonObject.has("poste")) {
-                        String name = jsonObject.getString("name");
-                        String address = jsonObject.getString("address");
-                        String email = jsonObject.getString("email");
-                        String poste = jsonObject.getString("poste");
+                    if (jsonObject.has("status") && jsonObject.getInt("status") == 200 && jsonObject.has("data")) {
+                        JSONArray dataArray = jsonObject.getJSONArray("data");
 
-                        // Afficher les données dans les TextView correspondants
-                        textViewName.setText(name);
-                        textViewAddress.setText(address);
-                        textViewAdressMail.setText(email);
-                        textViewPoste.setText(poste);
+                        // Récupérer le premier objet JSON dans le tableau de données
+                        JSONObject profileData = dataArray.getJSONObject(0);
+
+                        // Vérifier si le profil contient les clés nécessaires
+                        if (profileData.has("nom") && profileData.has("adresse") && profileData.has("mail") && profileData.has("poste")) {
+                            String name = profileData.getString("nom");
+                            String address = profileData.getString("adresse");
+                            String email = profileData.getString("mail");
+                            String poste = profileData.getString("poste");
+
+                            // Afficher les données dans les TextView correspondants
+                            textViewName.setText(name);
+                            textViewAddress.setText(address);
+                            textViewAdressMail.setText(email);
+                            textViewPoste.setText(poste);
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
