@@ -41,35 +41,35 @@
                 <TextView
                     android:text="Hébergement"
                     android:textStyle="bold"
-                    android:padding="8dp"/>
+                    android:padding="8dp"/> // Ajout de la marge intérieure
                 <TextView
                     android:text="Repas"
                     android:textStyle="bold"
-                    android:padding="8dp"/>
+                    android:padding="8dp"/> // Ajout de la marge intérieure
                 <TextView
                     android:text="Transport"
                     android:textStyle="bold"
-                    android:padding="8dp"/>
+                    android:padding="8dp"/> // Ajout de la marge intérieure
                 <TextView
                     android:text="Autres"
                     android:textStyle="bold"
-                    android:padding="8dp"/>
+                    android:padding="8dp"/> // Ajout de la marge intérieure
                 <TextView
                     android:text="Prix Total"
                     android:textStyle="bold"
-                    android:padding="8dp"/>
+                    android:padding="8dp"/> // Ajout de la marge intérieure
                 <TextView
                     android:text="Mois"
                     android:textStyle="bold"
-                    android:padding="8dp"/>
+                    android:padding="8dp"/> // Ajout de la marge intérieure
                 <TextView
                     android:text="Date"
                     android:textStyle="bold"
-                    android:padding="8dp"/>
+                    android:padding="8dp"/> // Ajout de la marge intérieure
                 <TextView
                     android:text="État"
                     android:textStyle="bold"
-                    android:padding="8dp"/>
+                    android:padding="8dp"/> // Ajout de la marge intérieure
             </TableRow>
 
         </TableLayout>
