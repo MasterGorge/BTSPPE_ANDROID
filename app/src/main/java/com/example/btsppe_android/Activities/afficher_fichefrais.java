@@ -71,6 +71,7 @@ public class afficher_fichefrais extends AppCompatActivity {
                                 int transport = jsonObject.getInt("transport");
                                 int prixTotal = jsonObject.getInt("prix_total");
                                 int autres = jsonObject.getInt("autres");
+                                String etat = jsonObject.getString("etat"); // Nouvelle ligne pour récupérer l'état
 
                                 TableRow row = new TableRow(afficher_fichefrais.this);
 
@@ -101,6 +102,10 @@ public class afficher_fichefrais extends AppCompatActivity {
                                 TextView textViewDate = new TextView(afficher_fichefrais.this);
                                 textViewDate.setText(date);
                                 row.addView(textViewDate);
+
+                                TextView textViewEtat = new TextView(afficher_fichefrais.this); // Nouvelle TextView pour l'état
+                                textViewEtat.setText(etat); // Afficher l'état dans la TextView
+                                row.addView(textViewEtat); // Ajouter la TextView à la ligne
 
                                 TableLayout tableLayout = findViewById(R.id.tableLayout);
                                 tableLayout.addView(row);
