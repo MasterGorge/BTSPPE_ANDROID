@@ -48,7 +48,7 @@ public class afficher_fichefrais extends AppCompatActivity {
     private class FetchFichesFraisTask extends AsyncTask<Void, Void, String> {
         @Override
         protected String doInBackground(Void... voids) {
-            String apiUrl = "https://protfoliomartinbillault.000webhostapp.com/gsb/AfficherFichesFrais.php";
+            String apiUrl = "https://connexionapi.000webhostapp.com/AfficherFichesFrais.php";
             RequestQueue queue = Volley.newRequestQueue(afficher_fichefrais.this);
             StringRequest request = new StringRequest(Request.Method.GET, apiUrl, new Response.Listener<String>() {
                 @Override
@@ -64,7 +64,6 @@ public class afficher_fichefrais extends AppCompatActivity {
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-
                                 String mois = jsonObject.getString("mois");
                                 String date = jsonObject.getString("date");
                                 int hebergement = jsonObject.getInt("hebergement");
@@ -74,15 +73,6 @@ public class afficher_fichefrais extends AppCompatActivity {
                                 int autres = jsonObject.getInt("autres");
 
                                 TableRow row = new TableRow(afficher_fichefrais.this);
-
-
-                                TextView textViewMois = new TextView(afficher_fichefrais.this);
-                                textViewMois.setText(mois);
-                                row.addView(textViewMois);
-
-                                TextView textViewDate = new TextView(afficher_fichefrais.this);
-                                textViewDate.setText(date);
-                                row.addView(textViewDate);
 
                                 TextView textViewHebergement = new TextView(afficher_fichefrais.this);
                                 textViewHebergement.setText(String.valueOf(hebergement));
@@ -96,13 +86,21 @@ public class afficher_fichefrais extends AppCompatActivity {
                                 textViewTransport.setText(String.valueOf(transport));
                                 row.addView(textViewTransport);
 
+                                TextView textViewAutres = new TextView(afficher_fichefrais.this);
+                                textViewAutres.setText(String.valueOf(autres));
+                                row.addView(textViewAutres);
+
                                 TextView textViewPrixTotal = new TextView(afficher_fichefrais.this);
                                 textViewPrixTotal.setText(String.valueOf(prixTotal));
                                 row.addView(textViewPrixTotal);
 
-                                TextView textViewAutres = new TextView(afficher_fichefrais.this);
-                                textViewAutres.setText(String.valueOf(autres));
-                                row.addView(textViewAutres);
+                                TextView textViewMois = new TextView(afficher_fichefrais.this);
+                                textViewMois.setText(mois);
+                                row.addView(textViewMois);
+
+                                TextView textViewDate = new TextView(afficher_fichefrais.this);
+                                textViewDate.setText(date);
+                                row.addView(textViewDate);
 
                                 TableLayout tableLayout = findViewById(R.id.tableLayout);
                                 tableLayout.addView(row);
@@ -131,7 +129,5 @@ public class afficher_fichefrais extends AppCompatActivity {
             queue.add(request);
             return null;
         }
-
-
     }
 }
