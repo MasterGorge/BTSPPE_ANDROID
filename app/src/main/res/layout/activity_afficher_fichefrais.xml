@@ -33,30 +33,43 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:stretchColumns="*">
 
             <TableRow>
                 <TextView
                     android:text="Hébergement"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:padding="8dp"/>
                 <TextView
                     android:text="Repas"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:padding="8dp"/>
                 <TextView
                     android:text="Transport"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:padding="8dp"/>
                 <TextView
                     android:text="Autres"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:padding="8dp"/>
                 <TextView
                     android:text="Prix Total"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:padding="8dp"/>
                 <TextView
                     android:text="Mois"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:padding="8dp"/>
                 <TextView
                     android:text="Date"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:padding="8dp"/>
+                <TextView
+                    android:text="État"
+                    android:textStyle="bold"
+                    android:padding="8dp"/>
             </TableRow>
 
         </TableLayout>
