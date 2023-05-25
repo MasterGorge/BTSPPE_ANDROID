@@ -80,7 +80,7 @@
             @Override
             protected Integer doInBackground(String... params) {
 
-                String login_url = "https://connexionapi.000webhostapp.com/login.php";
+                String login_url = "https://protfoliomartinbillault.000webhostapp.com/gsb/login.php";
                 try {
                     URL url = new URL(login_url);
                     HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();

@@ -48,7 +48,7 @@ public class afficher_fichefrais extends AppCompatActivity {
     private class FetchFichesFraisTask extends AsyncTask<Void, Void, String> {
         @Override
         protected String doInBackground(Void... voids) {
-            String apiUrl = "https://connexionapi.000webhostapp.com/AfficherFichesFrais.php";
+            String apiUrl = "https://protfoliomartinbillault.000webhostapp.com/gsb/AfficherFichesFrais.php";
             RequestQueue queue = Volley.newRequestQueue(afficher_fichefrais.this);
             StringRequest request = new StringRequest(Request.Method.GET, apiUrl, new Response.Listener<String>() {
                 @Override

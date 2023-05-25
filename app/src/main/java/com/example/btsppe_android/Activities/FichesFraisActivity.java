@@ -30,7 +30,7 @@ public class FichesFraisActivity extends AppCompatActivity {
     private EditText etNom, etPrenom, etPoste, etMois, etDates, etFraisHebergement, etFraisRepas, etFraisTransport, etAutres;
     private Button btnEnvoyer;
 
-    private static final String API_URL = "https://connexionapi.000webhostapp.com/ApiFichesFrais.php";
+    private static final String API_URL = "https://protfoliomartinbillault.000webhostapp.com/gsb/ApiFichesFrais.php";
     private SharedPreferences tokenPrefs;
     private String token;
 
