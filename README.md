@@ -14,3 +14,7 @@ ou
 
 email: martinbillault9@gmail.com
 mdp: 123
+Fiches frais
+
+Dans la fiches frais dans mois il faut le mettre en chiffres sans 0 avant tel que 5 est pas 05 pour le cinquieme mois de meme dans repat,hebergelent etc
+il faut mettre 1 est pas 01 ou 02 etc pour tout chiffres à renseigner et pour la date la renseigner comme cela AAAA-MM-JJ.
